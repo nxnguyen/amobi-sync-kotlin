@@ -1,5 +1,7 @@
 package com.powersync.db.crud
 
+import com.powersync.db.internal.PowerSyncTransaction
+
 /**
  * A transaction of client-side changes.
  */
@@ -20,6 +22,8 @@ public data class CrudTransaction(
      * [writeCheckpoint] is optional.
      */
     val complete: suspend (writeCheckpoint: String?) -> Unit,
+    /** Atomically run local metadata cleanup with SDK queue completion. */
+    val completeWith: (suspend (writeCheckpoint: String?, cleanup: suspend (PowerSyncTransaction) -> Unit) -> Unit)? = null,
 ) {
     override fun toString(): String = "CrudTransaction<$transactionId, $crud>"
 }

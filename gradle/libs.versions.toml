@@ -9,7 +9,7 @@ java = "17"
 
 # Dependencies
 kermit = "2.2.0"
-kotlin = "2.4.20"
+kotlin = "2.4.0"
 ksp = "2.3.11"
 coroutines = "1.11.0"
 kotlinx-datetime = "0.8.0"
@@ -35,7 +35,7 @@ room = "3.0.3"
 sqldelight = "2.3.2"
 
 # plugins
-android-gradle-plugin = "9.3.2"
+android-gradle-plugin = "9.4.1"
 maven-publish = "0.37.0"
 download-plugin = "5.7.0"
 mokkery = "3.5.0"

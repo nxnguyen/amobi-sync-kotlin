@@ -1,0 +1,12 @@
+{
+  "base": "364c30b70bb179ed68385ad3087f7f9a2b42af16",
+  "local": "kotlin",
+  "maintenance": "Pinned Amobi source tag; default branch remains an upstream tracking branch.",
+  "repo": "amobi-sync-kotlin",
+  "repository": "https://github.com/nxnguyen/amobi-sync-kotlin",
+  "source_path": "clients/kotlin",
+  "source_snapshot": "a2986deecb04cda1efa99da66ca67799e55e5347",
+  "tag": "amobi-1.15.2.1",
+  "upstream": "powersync-kotlin",
+  "upstream_repository": "https://github.com/powersync-ja/powersync-kotlin"
+}

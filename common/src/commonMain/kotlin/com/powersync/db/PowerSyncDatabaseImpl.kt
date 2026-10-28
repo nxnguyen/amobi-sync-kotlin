@@ -20,6 +20,7 @@ import com.powersync.db.driver.SQLiteConnectionPool
 import com.powersync.db.internal.InternalDatabaseImpl
 import com.powersync.db.internal.InternalTable
 import com.powersync.db.internal.PowerSyncVersion
+import com.powersync.db.internal.PowerSyncTransaction
 import com.powersync.db.schema.Schema
 import com.powersync.sync.CheckpointMode
 import com.powersync.sync.CheckpointRequest
@@ -318,6 +319,9 @@ internal class PowerSyncDatabaseImpl(
                             }
                             handleWriteCheckpoint(lastId, writeCheckpoint)
                         },
+                        completeWith = { writeCheckpoint, cleanup ->
+                            handleWriteCheckpoint(lastId, writeCheckpoint, cleanup)
+                        },
                     ),
                 )
             }
@@ -419,12 +423,14 @@ internal class PowerSyncDatabaseImpl(
     private suspend fun handleWriteCheckpoint(
         lastTransactionId: Int,
         writeCheckpoint: String?,
+        cleanup: (suspend (PowerSyncTransaction) -> Unit)? = null,
     ) {
         internalDb.writeTransactionAsync { transaction ->
             transaction.executeAsync(
                 "DELETE FROM ps_crud WHERE id <= ?",
                 listOf(lastTransactionId.toLong()),
             )
+            cleanup?.invoke(transaction)
 
             val resolvedCheckpoint =
                 writeCheckpoint
